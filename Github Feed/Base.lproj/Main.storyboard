@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,22 +22,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fw2-Y6-JaT">
-                                <rect key="frame" x="0.0" y="28" width="320" height="320"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="fw2-Y6-JaT" secondAttribute="height" multiplier="1:1" id="pOh-r8-ZVu"/>
-                                </constraints>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="41" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sev-N7-VLN">
-                                <rect key="frame" x="0.0" y="346" width="320" height="222"/>
+                                <rect key="frame" x="0.0" y="356" width="320" height="212"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="212" id="l5e-M1-dkz"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="41" id="GpR-WA-O5I">
                                         <rect key="frame" x="0.0" y="28" width="320" height="41"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GpR-WA-O5I" id="afh-1G-9Ol">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -47,27 +43,32 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="E8Y-Yg-DVn"/>
                                 </connections>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fw2-Y6-JaT">
+                                <rect key="frame" x="49" y="70" width="222" height="215"/>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="fw2-Y6-JaT" secondAttribute="bottom" constant="220" id="5je-U1-R8q"/>
-                            <constraint firstItem="sev-N7-VLN" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="Eu7-D8-MUj"/>
-                            <constraint firstItem="sev-N7-VLN" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="326" id="I1y-MY-YCJ"/>
-                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="OTI-jp-cgq"/>
-                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="leading" secondItem="sev-N7-VLN" secondAttribute="leading" id="Qyv-u6-C7b"/>
-                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ctw-Xd-3Ow"/>
-                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="trailing" secondItem="sev-N7-VLN" secondAttribute="trailing" id="lPK-qc-bNU"/>
-                            <constraint firstAttribute="trailing" secondItem="fw2-Y6-JaT" secondAttribute="trailing" id="q4h-yf-kNA"/>
+                            <constraint firstItem="sev-N7-VLN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BN5-DC-cZN"/>
+                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="33" id="Kne-MM-xGS"/>
+                            <constraint firstAttribute="trailing" secondItem="sev-N7-VLN" secondAttribute="trailing" id="Rac-rq-xRJ"/>
+                            <constraint firstItem="sev-N7-VLN" firstAttribute="top" secondItem="fw2-Y6-JaT" secondAttribute="bottom" constant="71" id="Re3-li-2rh"/>
+                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="50" id="bNp-2M-5KW"/>
+                            <constraint firstItem="sev-N7-VLN" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="mJA-E7-mpi"/>
+                            <constraint firstItem="fw2-Y6-JaT" firstAttribute="centerX" secondItem="sev-N7-VLN" secondAttribute="centerX" id="pEC-Nt-Eng"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="yr8-on-xxO"/>
                     <connections>
+                        <outlet property="mainview" destination="8bC-Xf-vdC" id="d7f-5Z-EMM"/>
                         <outlet property="profileimage" destination="fw2-Y6-JaT" id="6pe-OH-VBi"/>
                         <outlet property="tableview" destination="sev-N7-VLN" id="yik-hx-wjm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="33.75" y="36.971830985915496"/>
+            <point key="canvasLocation" x="-114.375" y="28.52112676056338"/>
         </scene>
     </scenes>
 </document>

@@ -10,5 +10,7 @@ target 'Github Feed' do
 	pod 'Alamofire', '~> 4.5'
 	pod 'SwiftyJSON'
 	pod 'SCLAlertView'
+	pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+	pod 'Kingfisher', '~> 4.0'
 
 end

@@ -1,18 +1,35 @@
 PODS:
   - Alamofire (4.5.0)
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - Kingfisher (4.1.0)
   - SCLAlertView (0.7.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5)
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - Kingfisher (~> 4.0)
   - SCLAlertView
   - SwiftyJSON
 
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: 6dd284bde21ea2e7f9fd89bc36f40df16e16369d
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
   SCLAlertView: 8a14ffc40590c619e183eed2298b854385f30be1
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 430283cfb89ea28e379a278ec348264bdedbb568
+PODFILE CHECKSUM: dff8349f5588ba7a3d60e734d724de5b871fd3a4
 
 COCOAPODS: 1.1.1
