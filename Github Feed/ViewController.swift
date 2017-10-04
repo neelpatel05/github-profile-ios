@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
+import SCLAlertView
+
 
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -26,46 +28,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        showGetUserName();
+        userNameEnter();
+        //showGetUserName();
     }
     
-    func showGetUserName() {
+    func userNameEnter(){
         
-        let alertController = UIAlertController(title: "Welcome to Github Feed Burner!", message: "Please tell me username:", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Continue", style: .default, handler: {
-            alert -> Void in
-            let userNameField = alertController.textFields![0] as UITextField
+        let appearance = SCLAlertView.SCLAppearance(
             
-            if userNameField.text != "" {
-                self.username = userNameField.text!;
-            } else {
-                let errorAlert = UIAlertController(title: "Error", message: "Please input username", preferredStyle: .alert)
+            showCloseButton: false
+            
+        )
+        
+        let alert = SCLAlertView(appearance: appearance);
+        
+        
+        let txt = alert.addTextField("Enter the username");
+
+        
+        alert.addButton("Continue"){
+            
+            if txt.text == "" {
                 
-                errorAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
-                    alert -> Void in
-                    self.present(alertController, animated: true, completion: nil)
-                }))
-                self.present(errorAlert, animated: true, completion: nil)
+                self.errorAlert();
+                
+            } else {
+                
+                self.username = txt.text?.lowercased();
+                self.getUser();
+            
             }
-            self.getUser();
-        })
+        }
         
-        alertController.addAction(action);
+        alert.showInfo("GitHub Feed Burner", subTitle: "Made for Developers");
+    }
+    
+    func errorAlert() {
         
-        alertController.addTextField(configurationHandler: { (textField) -> Void in
-            textField.placeholder = "User Name"
-            textField.textAlignment = .center
-        });
+        let appearance = SCLAlertView.SCLAppearance(
+            
+            showCloseButton: false
+            
+        )
         
-        self.present(alertController, animated: true, completion: nil);
+        let alert = SCLAlertView(appearance: appearance);
+
+        alert.addButton("Ok"){
+            
+            self.userNameEnter();
+            
+        }
+        
+        alert.showError("Error", subTitle: "Username cannot be blank");
+    
     }
     
     func getUser(){
+        
         let url = "https://api.github.com/users/" + self.username;
         
         print(url);
+        
         Alamofire.request(url).responseJSON {
+            
             (response) in
             
             let data = response.result.value;
@@ -74,31 +99,57 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             var jsondata = JSON(data as Any);
             
             let url = URL(string: jsondata["avatar_url"].stringValue);
+            
             let imgdata = try? Data(contentsOf: url!)
+            
             self.profileimage.image = UIImage(data: imgdata!)
             
             self.information.append("Name : " + jsondata["name"].stringValue);
+            
             self.information.append("Login : " + jsondata["login"].stringValue);
+            
             self.information.append("Location : " + jsondata["location"].stringValue);
+            
             self.information.append("Repository : " + jsondata["public_repos"].stringValue);
+            
             self.information.append("Followers : " + jsondata["followers"].stringValue);
+            
             self.information.append("Following : " + jsondata["following"].stringValue);
             
             self.tableview.reloadData();
         }
     }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    //var i: Int = 0;
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10;
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
         return information.count;
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1;
+    
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath);
         
-        cell.textLabel?.text = information[indexPath.row];
+        cell.textLabel?.text = information[indexPath.section];
         cell.textLabel?.numberOfLines = 0;
+        cell.textLabel?.textAlignment = NSTextAlignment.center;
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping;
+        cell.layer.borderWidth = 1;
+        cell.layer.cornerRadius = 20;
+        cell.layer.borderColor = UIColor.gray.cgColor;
+        cell.clipsToBounds = true;
         
         return cell
         

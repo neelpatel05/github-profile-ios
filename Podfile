@@ -9,5 +9,6 @@ target 'Github Feed' do
 
 	pod 'Alamofire', '~> 4.5'
 	pod 'SwiftyJSON'
+	pod 'SCLAlertView'
 
 end
