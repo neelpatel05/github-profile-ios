@@ -31,7 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        self.profileimage.layer.cornerRadius = 10.0;
+        
         mainview.backgroundColor = UIColor.flatPowderBlue;
         tableview.backgroundColor = UIColor.flatPowderBlue;
         userNameEnter();
@@ -98,8 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.profileimage.kf.indicatorType = .activity;
             
             self.profileimage.kf.setImage(with: url, placeholder: "Downloading" as? Placeholder, options: nil, progressBlock: nil, completionHandler: nil);
-            
-            self.profileimage.layer.cornerRadius = 50;
+            self.profileimage.layer.borderWidth = 2;
             
             self.information.append("Name : " + jsondata["name"].stringValue);
             
@@ -113,6 +112,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             self.information.append("Following : " + jsondata["following"].stringValue);
             
+            self.mainview.backgroundColor = UIColor.flatWhite;
             self.tableview.reloadData();
         }
     }
@@ -139,7 +139,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath);
         
-        cell.backgroundColor = UIColor.flatPowderBlue;
+        cell.backgroundColor = UIColor.flatWhiteDark;
         cell.textLabel?.text = information[indexPath.section];
         cell.textLabel?.textColor = UIColor.flatBlue;
         cell.textLabel?.numberOfLines = 0;
