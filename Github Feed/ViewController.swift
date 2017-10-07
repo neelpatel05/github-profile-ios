@@ -17,7 +17,14 @@ import Kingfisher
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var mainview: UIView!
-    var information = [String]()
+    var information = [String]();
+    var userrepos = [String]();
+    var userfollowers = [String]();
+    var userfollowing = [String]();
+    var htmlurl = [String]();
+    var repolanguage = [String]();
+    var repobranch = [String]();
+    var repodescription = [String]();
     var username: String!;
     var identities = ["A","B","C","D","E","F"];
     
@@ -54,6 +61,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             } else {
                 self.username = txt.text?.lowercased();
                 self.getUser();
+                self.getUserRepos();
+                self.getUserFollowing();
+                self.getUserFollowers();
             }
         }
         
@@ -88,7 +98,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let data = response.result.value;
             
-            print(JSON(data as Any));
+            //print(JSON(data as Any));
             let jsondata = JSON(data as Any);
             
             let url = URL(string: jsondata["avatar_url"].stringValue);
@@ -116,6 +126,106 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.tableview.reloadData();
         }
     }
+
+    func getUserRepos() {
+        
+        let url = "https://api.github.com/users/"+self.username+"/repos";
+        
+        Alamofire.request(url).responseJSON {
+            (reponse) in
+            
+            let data = reponse.result.value;
+            
+            let jsondata = JSON(data as Any);
+            
+            print(jsondata.count);
+            
+            for i in 0..<jsondata.count {
+                
+                self.userrepos.append(jsondata[i]["name"].stringValue);
+                
+                self.htmlurl.append(jsondata[i]["html_url"].stringValue);
+                self.repolanguage.append(jsondata[i]["language"].stringValue);
+                self.repobranch.append(jsondata[i]["default_branch"].stringValue);
+                self.repodescription.append(jsondata[i]["description"].stringValue);
+                
+                
+            }
+            
+            for i in 0..<self.userrepos.count {
+                
+                print(self.userrepos[i]);
+               // print(self.htmlurl[i]);
+                
+            }
+        }
+        
+        
+    }
+    
+    func getUserFollowers(){
+        
+        let url = "https://api.github.com/users/"+self.username+"/followers";
+        
+        print(url)
+        
+        Alamofire.request(url).responseJSON {
+            
+            (response) in
+            
+            let data = response.result.value;
+            //print(JSON(data as Any));
+            
+            let jsondata = JSON(data as Any);
+            
+            for i in 0..<jsondata.count {
+                
+                self.userfollowers.append(jsondata[i]["login"].stringValue);
+                
+            }
+            
+            for i in 0..<jsondata.count {
+                
+                print(self.userfollowers[i]);
+                
+            }
+            
+        }
+        
+        
+    }
+    
+    func getUserFollowing() {
+        
+        let url = "https://api.github.com/users/" + self.username + "/following";
+        
+        
+        Alamofire.request(url).responseJSON {
+            (response) in
+            
+            let data = response.result.value;
+            
+            //print(JSON(data as Any));
+            
+            let jsondata = JSON(data as Any);
+            
+            for i in 0..<jsondata.count {
+                
+                self.userfollowing.append(jsondata[i]["login"].stringValue);
+                
+            }
+            
+            for i in 0..<jsondata.count {
+                
+                print(self.userfollowing[i]);
+                
+            }
+            
+        }
+        
+        
+    }
+    
     
     //var i: Int = 0;
     
@@ -181,20 +291,69 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             alert.showInfo("Location", subTitle: "\(self.information[2])");
             
         }else if(name=="Reposit"){
+
+            let alertcontroller = UIAlertController(title: "Repository", message: self.username + "has following Repository", preferredStyle: .actionSheet);
             
-            let alert = SCLAlertView();
-            alert.showInfo("Repository", subTitle: "\(self.information[3])");
+            for i in 0..<self.userrepos.count {
+                
+                //let rawurl = "https://github.com/"+self.username+"/"+self.userrepos[i]+"/";
+                //let url = NSURL(String(rawurl));
+                alertcontroller.addAction(UIAlertAction(title: self.userrepos[i], style: .default, handler: { action in
+                    
+                    let alertcontroller = UIAlertController(title: self.userrepos[i], message: "Language : " + self.repolanguage[i] + "\n" + "Branch : " + self.repobranch[i] + "\nDescription : " + self.repodescription[i], preferredStyle: .alert);
+                    
+                    let alert = UIAlertAction(title: "Ok", style: .cancel, handler: nil);
+                    
+                    alertcontroller.addAction(alert);
+                    
+                    self.present(alertcontroller, animated: true, completion: nil);
+                    
+                }));
+                
+            }
             
+            alertcontroller.addAction(UIAlertAction(title: "Done", style: .default, handler: nil));
+            
+            self.present(alertcontroller, animated: true, completion: nil);
+            
+//            let alert = SCLAlertView();
+//            alert.showInfo("Repository", subTitle: "\(self.information[3])");
+//            
         }else if(name=="Followe"){
             
-            let alert = SCLAlertView();
-            alert.showInfo("Followers", subTitle: "\(self.information[4])");
+            let alertcontroller = UIAlertController(title: "Followers", message: self.username + "has following followers", preferredStyle: .actionSheet);
+            
+            for i in 0..<self.userfollowers.count {
+                
+                alertcontroller.addAction(UIAlertAction(title: self.userfollowers[i], style: .default, handler: nil))
+                
+            }
+            
+            alertcontroller.addAction(UIAlertAction(title: "Done", style: .default, handler: nil));
+            
+            self.present(alertcontroller, animated: true, completion: nil);
+            
+//            let alert = SCLAlertView();
+//            alert.showInfo("Followers", subTitle: "\(self.information[4])");
             
         }else if(name=="Followi"){
+
             
-            let alert = SCLAlertView();
-            alert.showInfo("Following", subTitle: "\(self.information[5])");
+            let alertcontroller = UIAlertController(title: "Following", message: self.username + "is following", preferredStyle: .actionSheet);
             
+            for i in 0..<self.userfollowing.count {
+                
+                alertcontroller.addAction(UIAlertAction(title: self.userfollowing[i], style: .default, handler: nil))
+                
+            }
+            
+            alertcontroller.addAction(UIAlertAction(title: "Done", style: .default, handler: nil));
+            
+            self.present(alertcontroller, animated: true, completion: nil);
+            
+//            let alert = SCLAlertView();
+//            alert.showInfo("Following", subTitle: "\(self.information[5])");
+//            
         }
         
     }
