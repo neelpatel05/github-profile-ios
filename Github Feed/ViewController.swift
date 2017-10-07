@@ -37,6 +37,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         //showGetUserName();
     }
     
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         
         mainview.backgroundColor = UIColor.flatPowderBlue;
@@ -44,6 +46,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         userNameEnter();
         //showGetUserName();
     }
+
     
     func userNameEnter(){
         
@@ -68,6 +71,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         alert.showInfo("GitHub Feed Burner", subTitle: "Made for Developers");
+        
     }
     
     func errorAlert() {
@@ -300,13 +304,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 //let url = NSURL(String(rawurl));
                 alertcontroller.addAction(UIAlertAction(title: self.userrepos[i], style: .default, handler: { action in
                     
-                    let alertcontroller = UIAlertController(title: self.userrepos[i], message: "Language : " + self.repolanguage[i] + "\n" + "Branch : " + self.repobranch[i] + "\nDescription : " + self.repodescription[i], preferredStyle: .alert);
-                    
-                    let alert = UIAlertAction(title: "Ok", style: .cancel, handler: nil);
-                    
-                    alertcontroller.addAction(alert);
-                    
-                    self.present(alertcontroller, animated: true, completion: nil);
+                    SCLAlertView().showTitle(self.userrepos[i], subTitle: "Language : " + self.repolanguage[i] + "\n" + "Branch : " + self.repobranch[i] + "\nDescription : " + self.repodescription[i], style: SCLAlertViewStyle.info);
                     
                 }));
                 
